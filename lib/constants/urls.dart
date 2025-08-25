@@ -1,0 +1,41 @@
+const String BASE_URL = 'https://api.tiamomed.by/api/v1';
+
+const String USER_AUTHORIZATION_URL = '/authorization';
+const String GET_DOCTOR_BY_KOD= '/doctors';
+const String GET_RECORDS_BY_DOCTOR_KOD= '/records';
+const String GET_RECORDS_COUNT = '/records/get_rec_count';
+const String GET_RECORD_BY_ID = '/records/record';
+const String ADD_RECORD = '/records/add';
+const String ADD_RECORD_WITH_PACIENT = '/records/new_record';
+const String GET_PASSWORD_FOR_ZIP = '/records/get_pass';
+const String START_RECORD = '/records/start_record';
+const String END_RECORD = '/records/end_record';
+const String SAVE_ZIP = '/records/save_zip';
+const String GET_DOCTORS = '/doctors';
+const String GET_USLUGA_LIST = '/services';
+const String GET_USLUGA = '/services';
+const String GET_ACTIVITY = '/kind_activity';
+const String GET_DOCTOR_TIME_INTERVAL_LIST = '/time_intervals/doctor';
+const String GET_CABINET_TIME_INTERVAL_LIST = '/time_intervals/offices_busy';
+const String GET_DOCTOR_BUSY_TIME_INTERVAL_LIST = '/time_intervals/doctor_busy';
+const String GET_DOCTOR_CABINETS = '/services/doctor';
+const String GET_CABINET_INFO = '/offices';
+
+const String KNOWLEDGE_BASE_URL = 'https://baza.tiamomed.by/api/v1';
+const String GET_KNOWLEDGE_BASE = '/knowledge_base';
+const String GET_CATEGORIES_KNOWLEDGE_BASE = '/knowledge_base/get_categories';
+const String GET_ARTICLE = '/articles';
+const String GET_TEST = '/tests';
+const String POST_TEST_RESULT = '/testing_results';
+const String SAVE_TEST = '/testing_results/save_test';
+const String SAVE_TEST_ANSWER = '/testing_results/save_test_answers';
+const String GET_EXAMS = '/exams';
+const String GET_DETAIL_EXAM = '/exams';
+const String GET_EXAM_RESULT = '/exams/get_exam_results';
+const String SAVE_EXAM_RESULT = '/exams/save_exam_results';
+const String SAVE_EXAM_RESULT_ANSWER = '/exams/save_exam_results_answer';
+
+const String GET_BLOC_STATUS = '/records/block_status';
+const String GET_BLOC_APP_STATUS = '/records/blockApp_status';
+const String BLOC_OFF = '/records/block_off';
+const String BLOC_ON = '/records/block_on';
