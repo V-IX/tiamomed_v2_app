@@ -1,5 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart' as bloc;
+import 'package:go_router/go_router.dart';
+import 'package:nested/nested.dart';
+import 'package:provider/provider.dart' as provider;
 
+import '../../data/voice_record_service.dart';
+import '../../di/voice_record_service_provider.dart';
+import '../../routes/doctor_voice_recording_route.dart';
+import '../../state/doctor_voice_recording/doctor_voice_recording_bloc.dart' as bloc;
+import '../../state/doctor_voice_recording/doctor_voice_recording_bloc.dart';
 import 'select_image_resource_bottom_sheet.dart';
 
 final ButtonStyle _buttonStyle = ButtonStyle(
@@ -24,7 +33,7 @@ class DoctorActiveAppointmentPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           spacing: 4,
-          children: [
+          children: <Widget>[
             SizedBox(
               width: 260,
               child: FilledButton(
@@ -35,10 +44,10 @@ class DoctorActiveAppointmentPage extends StatelessWidget {
                     context: context,
                     builder: (_) {
                       return const SelectImageResourceBottomSheet();
-                    }
+                    },
                   );
                 },
-                child: const Text('Сделать фотографию')
+                child: const Text('Сделать фотографию'),
               ),
             ),
             SizedBox(
@@ -46,31 +55,39 @@ class DoctorActiveAppointmentPage extends StatelessWidget {
               child: FilledButton(
                 style: _buttonStyle,
                 onPressed: () {},
-                child: const Text('Сделать видео')
+                child: const Text('Сделать видео'),
               ),
             ),
-            SizedBox(
+            bloc.BlocBuilder<bloc.DoctorVoiceRecordingBloc, bool>(
+      builder: (context, isRecording) {
+        return SizedBox(
               width: 260,
               child: FilledButton(
                 style: _buttonStyle,
-                onPressed: () {},
-                child: const Text('Аудиозапись')
+                onPressed: () {
+                  context.pushNamed(DoctorVoiceRecordingRoute.name);
+                },
+                child: Text('Аудиозапись ${isRecording ? "идет" : ''}'),
               ),
-            ),
+            );
+      },
+    ),
             const SizedBox(height: 22),
             SizedBox(
               width: 260,
               child: OutlinedButton(
                 style: ButtonStyle(
-                  side: MaterialStateProperty.all(BorderSide(color: Theme.of(context).colorScheme.primary)),
+                  side: MaterialStateProperty.all(
+                    BorderSide(color: Theme.of(context).colorScheme.primary),
+                  ),
                   textStyle: MaterialStateProperty.all(const TextStyle(color: Colors.black)),
                 ),
                 onPressed: () {},
-                child: const Text('Завершить прием')
+                child: const Text('Завершить прием'),
               ),
-            )
-          ]
-        )
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -14,7 +14,7 @@ class ClientHomeRoute {
   static const String path = '/$name';
   static final GoRoute route = GoRoute(
     path: path,
-    builder: (BuildContext context, GoRouterState state) => const ClientHomePage(),
+    builder: (BuildContext context, GoRouterState state) => ClientHomePage(),
     routes: <RouteBase>[
       ServiceCategoriesRoute.route,
       ClientVisitHistoryRoute.route,

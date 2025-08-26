@@ -21,7 +21,7 @@ class ClientHomeMenuCard extends StatelessWidget {
           children: <Widget>[
             const Icon(Icons.image),
             Text(title),
-            Text(subtitle),
+            Text(subtitle, style: TextStyle(overflow: TextOverflow.ellipsis),),
           ],
         ),
       ),
