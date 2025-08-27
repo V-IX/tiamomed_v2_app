@@ -23,7 +23,7 @@ class DoctorHomeLoadedContent extends StatelessWidget {
           HomeDoctorCard(doctor: doctor),
           ListView.separated(
             shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (BuildContext context, int index) {
                 return AppointmentCard(
                   appointment: todayAppointments[index],
@@ -33,7 +33,7 @@ class DoctorHomeLoadedContent extends StatelessWidget {
                 );
               },
               separatorBuilder: (BuildContext context, int index) {
-                return SizedBox(height: 10);
+                return const SizedBox(height: 10);
               },
               itemCount: todayAppointments.length
           ),

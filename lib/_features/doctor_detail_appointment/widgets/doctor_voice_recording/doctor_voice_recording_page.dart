@@ -1,10 +1,10 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:go_router/go_router.dart';
 
-import '../../state/doctor_voice_recording/doctor_voice_recording_bloc.dart';
+import '../../../../_shared/widgets/navigation/custom_app_bar.dart';
+import '../../../../utils/other/date_util.dart';
+import '../../state/doctor_appointment_materials/doctor_appointment_materials_bloc.dart';
 
 class DoctorVoiceRecordingPage extends StatelessWidget {
   const DoctorVoiceRecordingPage({super.key});
@@ -12,38 +12,70 @@ class DoctorVoiceRecordingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Аудиозапись'),
-      ),
-      body: BlocBuilder<DoctorVoiceRecordingBloc, bool>(
-        builder: (BuildContext context, bool isRecording) {
-          return Column(
-            children: [
-              FilledButton(
-                  onPressed: () async {
-                    if(isRecording) {
-                      context.read<DoctorVoiceRecordingBloc>().add(StopDoctorVoiceRecordingEvent());
-                    } else {
-                      final Directory directory = await getApplicationDocumentsDirectory();
-                      final Directory folderPath = Directory('${directory.path}/material_of_record/');
-                      if(folderPath.existsSync()){
-                        context.read<DoctorVoiceRecordingBloc>().add(StartDoctorVoiceRecordingEvent(
-                            path: '${folderPath.path}${DateTime.now}_audio.m4p'
-                        ));
-                      } else {
-                        final Directory newFolderPath = await folderPath.create(recursive: true);
-                        context.read<DoctorVoiceRecordingBloc>().add(StartDoctorVoiceRecordingEvent(
-                            path: '${newFolderPath.path}${DateTime.now}_audio.m4p'
-                        ));
-                      }
+      appBar: const CustomAppBar(title: 'Аудиозапись'),
+      body: Padding(
+        padding: const EdgeInsets.all(44.0),
+        child: BlocBuilder<DoctorAppointmentMaterialsBloc, DoctorAppointmentMaterialsState>(
+          builder: (BuildContext context, DoctorAppointmentMaterialsState state) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(Icons.mic),
 
-                    }
-                  },
-                  child: Text(isRecording ? 'Остановить запись' : 'Начать запись')
+                  Text(formattedTime(timeInSecond: state.recordingSeconds)),
+
+                  const SizedBox(height: 6.0),
+                  Text(
+                    state.isRecording ? 'Запись идет' : 'Начните запись',
+                    textAlign: TextAlign.center,
+                  ),
+
+                  const SizedBox(height: 30.0),
+                  const Text(
+                    'Для начала записи нажмите кнопку «Начать аудиозапись»',
+                    textAlign: TextAlign.center,
+                  ),
+
+                  const SizedBox(height: 46.0),
+
+                  SizedBox(
+                    width: 220,
+                    child: FilledButton(
+                      onPressed: () async {
+                        if (state.isRecording) {
+                          context.read<DoctorAppointmentMaterialsBloc>().add(
+                            StopDoctorVoiceRecordingEvent(),
+                          );
+                        } else {
+                          context.read<DoctorAppointmentMaterialsBloc>().add(
+                            StartDoctorVoiceRecordingEvent(),
+                          );
+                        }
+                      },
+                      child: Text(state.isRecording ? 'Остановить запись' : 'Начать запись'),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 220,
+                    child: OutlinedButton(
+                      style: ButtonStyle(
+                        side: WidgetStatePropertyAll<BorderSide>(
+                          BorderSide(color: Theme.of(context).colorScheme.primary),
+                        ),
+                      ),
+                      onPressed: () async {
+                        context.pop();
+                      },
+                      child: const Text('Вернуться назад'),
+                    ),
+                  ),
+                  const SizedBox(height: 46.0),
+                ],
               ),
-            ],
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }

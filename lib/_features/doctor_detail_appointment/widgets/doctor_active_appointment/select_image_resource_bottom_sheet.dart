@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 
 class SelectImageResourceBottomSheet extends StatelessWidget {
-  const SelectImageResourceBottomSheet({super.key});
+  const SelectImageResourceBottomSheet({super.key, required this.addFromCameraCallback, required this.addFromGalleryCallback});
 
-  void addImagePath() {
-    print('addImagePath');
-  }
+  final VoidCallback addFromCameraCallback;
 
-  void addSomethingImages() {
-    print('addSomethingImages');
-  }
+  final VoidCallback addFromGalleryCallback;
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +23,7 @@ class SelectImageResourceBottomSheet extends StatelessWidget {
           child: Column(
             children: [
               GestureDetector(
-                onTap: () {
-                  addImagePath();
-                },
+                onTap: addFromCameraCallback,
                 child: Container(
                   color: Colors.transparent,
                   padding: const EdgeInsets.symmetric(vertical: 20.0),
@@ -38,9 +32,7 @@ class SelectImageResourceBottomSheet extends StatelessWidget {
               ),
               const Divider(color: Colors.black12),
               GestureDetector(
-                onTap: () {
-                  addSomethingImages();
-                },
+                onTap: addFromGalleryCallback,
                 child: Container(
                   color: Colors.transparent,
                   padding: const EdgeInsets.symmetric(vertical: 20.0),

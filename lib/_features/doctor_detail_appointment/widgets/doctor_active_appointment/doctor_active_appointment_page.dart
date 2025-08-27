@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart' as bloc;
 import 'package:go_router/go_router.dart';
-import 'package:nested/nested.dart';
-import 'package:provider/provider.dart' as provider;
+import 'package:image_picker/image_picker.dart';
 
-import '../../data/voice_record_service.dart';
-import '../../di/voice_record_service_provider.dart';
+import '../../../../_shared/widgets/navigation/custom_app_bar.dart';
+import '../../models/doctor_image_material.dart';
+import '../../routes/doctor_appointment_materials_route.dart';
+import '../../routes/doctor_photo_camera_route.dart';
+import '../../routes/doctor_video_camera_route.dart';
 import '../../routes/doctor_voice_recording_route.dart';
-import '../../state/doctor_voice_recording/doctor_voice_recording_bloc.dart' as bloc;
-import '../../state/doctor_voice_recording/doctor_voice_recording_bloc.dart';
+import '../../state/doctor_appointment_materials/doctor_appointment_materials_bloc.dart';
+import '../doctor_video_camera/_doctor_video_camera_page.dart';
 import 'select_image_resource_bottom_sheet.dart';
 
 final ButtonStyle _buttonStyle = ButtonStyle(
@@ -23,10 +25,19 @@ final ButtonStyle _buttonStyle = ButtonStyle(
 class DoctorActiveAppointmentPage extends StatelessWidget {
   const DoctorActiveAppointmentPage({super.key});
 
+  Future<String?> _selectImageFromGallery() async {
+    final ImagePicker picker = ImagePicker();
+
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+
+    return image?.path;
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Прием')),
+      appBar: const CustomAppBar(title: 'Прием'),
       body: Container(
         width: double.infinity,
         padding: const EdgeInsets.only(left: 22.0, right: 22, bottom: 120),
@@ -43,7 +54,21 @@ class DoctorActiveAppointmentPage extends StatelessWidget {
                     useRootNavigator: true,
                     context: context,
                     builder: (_) {
-                      return const SelectImageResourceBottomSheet();
+                      return SelectImageResourceBottomSheet(
+                        addFromCameraCallback: () {
+                          context.goNamed(DoctorPhotoCameraRoute.name);
+                        },
+                        addFromGalleryCallback: () async {
+                          final String? path = await _selectImageFromGallery();
+                          if (path != null && context.mounted) {
+                            context.read<DoctorAppointmentMaterialsBloc>().add(
+                              AddImageMaterialEvent(
+                                imageMaterial: DoctorImageMaterial(imagePath: path),
+                              ),
+                            );
+                          }
+                        },
+                      );
                     },
                   );
                 },
@@ -54,24 +79,26 @@ class DoctorActiveAppointmentPage extends StatelessWidget {
               width: 260,
               child: FilledButton(
                 style: _buttonStyle,
-                onPressed: () {},
+                onPressed: () {
+                  context.goNamed(DoctorVideoCameraRoute.name);
+                },
                 child: const Text('Сделать видео'),
               ),
             ),
-            bloc.BlocBuilder<bloc.DoctorVoiceRecordingBloc, bool>(
-      builder: (context, isRecording) {
-        return SizedBox(
-              width: 260,
-              child: FilledButton(
-                style: _buttonStyle,
-                onPressed: () {
-                  context.pushNamed(DoctorVoiceRecordingRoute.name);
-                },
-                child: Text('Аудиозапись ${isRecording ? "идет" : ''}'),
-              ),
-            );
-      },
-    ),
+            bloc.BlocBuilder<DoctorAppointmentMaterialsBloc, DoctorAppointmentMaterialsState>(
+              builder: (BuildContext context, DoctorAppointmentMaterialsState state) {
+                return SizedBox(
+                  width: 260,
+                  child: FilledButton(
+                    style: _buttonStyle,
+                    onPressed: () {
+                      context.goNamed(DoctorVoiceRecordingRoute.name);
+                    },
+                    child: Text('Аудиозапись ${state.isRecording ? "идет" : ''}'),
+                  ),
+                );
+              },
+            ),
             const SizedBox(height: 22),
             SizedBox(
               width: 260,
@@ -82,7 +109,9 @@ class DoctorActiveAppointmentPage extends StatelessWidget {
                   ),
                   textStyle: MaterialStateProperty.all(const TextStyle(color: Colors.black)),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  context.goNamed(DoctorAppointmentMaterialsRoute.name);
+                },
                 child: const Text('Завершить прием'),
               ),
             ),

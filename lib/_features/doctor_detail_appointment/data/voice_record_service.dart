@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:path_provider/path_provider.dart';
 import 'package:record/record.dart';
 
 class VoiceRecordService {
@@ -9,11 +12,24 @@ class VoiceRecordService {
   }
 
 
-  Future<void> startRecording(String path) async {
+  Future<void> startRecording() async {
     if (await hasPermission()) {
+
+      final Directory directory = await getApplicationDocumentsDirectory();
+      final Directory folderPath = Directory('${directory.path}/material_of_record/');
+
+      final String filePath;
+
+      if(folderPath.existsSync()){
+        filePath = '${folderPath.path}${DateTime.now()}_audio.m4p';
+      } else {
+        final Directory newFolderPath = await folderPath.create(recursive: true);
+        filePath = '${newFolderPath.path}${DateTime.now()}_audio.m4p';
+      }
+
       await _record.start(
         const RecordConfig(),
-        path: path,
+        path: filePath,
       );
     }
   }

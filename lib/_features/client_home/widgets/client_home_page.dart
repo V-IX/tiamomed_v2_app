@@ -9,41 +9,23 @@ import '../../client_visit_history/routes/client_visit_history_route.dart';
 import 'client_home_bonus_count_card.dart';
 import 'client_home_menu_card.dart';
 import 'client_home_search_sliver_app_bar.dart';
-import 'client_home_user_card.dart';
 
-class ClientHomePage extends StatefulWidget {
-  ClientHomePage({super.key});
-
-  @override
-  State<ClientHomePage> createState() => _ClientHomePageState();
-}
-
-class _ClientHomePageState extends State<ClientHomePage> {
-
-  final ScrollController _scrollController = ScrollController();
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
+class ClientHomePage extends StatelessWidget {
+  const ClientHomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomScrollView(
-        controller: _scrollController,
-        slivers: [
-          ClientHomeSearchSliverAppBar(
-            controller: _scrollController,
-          ),
+        slivers: <Widget>[
+          const ClientHomeSearchSliverAppBar(),
           SliverPadding(
             padding: const EdgeInsets.all(22.0),
             sliver: SliverList(
               delegate: SliverChildListDelegate(
-                [
+                <Widget>[
                   const ClientHomeBonusCountCard(),
-                  SizedBox(height:16),
+                  const SizedBox(height:16),
                   Row(
                     spacing: 16,
                     children: <Widget>[
@@ -67,7 +49,7 @@ class _ClientHomePageState extends State<ClientHomePage> {
                       )
                     ],
                   ),
-                  SizedBox(height:16),
+                  const SizedBox(height:16),
                   Row(
                     spacing: 16,
                     children: <Widget>[

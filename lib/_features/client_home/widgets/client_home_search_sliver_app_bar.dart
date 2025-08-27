@@ -4,13 +4,11 @@ import 'client_home_search_text_field.dart';
 import 'user_name_animation.dart';
 
 class ClientHomeSearchSliverAppBar extends StatefulWidget {
-  const ClientHomeSearchSliverAppBar({super.key, required this.controller});
-
-
-  final ScrollController controller;
+  const ClientHomeSearchSliverAppBar({super.key});
 
   @override
   State<ClientHomeSearchSliverAppBar> createState() => _ClientHomeSearchSliverAppBarState();
+
 }
 
 class _ClientHomeSearchSliverAppBarState extends State<ClientHomeSearchSliverAppBar> {
@@ -61,7 +59,6 @@ class _ClientHomeSearchSliverAppBarState extends State<ClientHomeSearchSliverApp
                 duration: const Duration(milliseconds: 200),
                 top: _isFlexible ? kToolbarHeight+8 : 150-((constraints.maxHeight-kToolbarHeight)*(1-progress))*0.5,
                 right: 22,
-                curve: Curves.linear,
                 child: SizedBox(
                   height: 54,
                   width: 54,

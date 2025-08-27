@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../_features/doctor_add_appointment/routes/select_doctor_for_add_appointment_route.dart';
+import '../../../_features/doctor_detail_appointment/routes/doctor_photo_camera_route.dart';
+import '../../../_features/doctor_detail_appointment/routes/doctor_video_camera_route.dart';
+import '../../../_features/doctor_detail_appointment/routes/doctor_voice_recording_route.dart';
 import 'bottom_nav_item.dart';
 
 class ScaffoldWithDoctorNavBar extends StatelessWidget {
@@ -18,11 +21,19 @@ class ScaffoldWithDoctorNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final RouteMatch lastMatch = GoRouter.of(context).routerDelegate.currentConfiguration.last;
+    final RouteMatchList matchList = lastMatch is ImperativeRouteMatch ? lastMatch.matches : GoRouter.of(context).routerDelegate.currentConfiguration;
+    final String location = matchList.uri.toString();
+
+
+    final bool isShowing = !location.contains(DoctorPhotoCameraRoute.name) && !location.contains(DoctorVideoCameraRoute.name);
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: const Color(0xFFF8F8F8),
       body: navigationShell,
-      floatingActionButton: SizedBox(
+      floatingActionButton: isShowing ? SizedBox(
         height: 64,
         width: 64,
         child: FloatingActionButton(
@@ -33,10 +44,10 @@ class ScaffoldWithDoctorNavBar extends StatelessWidget {
           backgroundColor: const Color(0xFFFF0066),
           child: const Icon(Icons.add),
         ),
-      ),
+      ) : null,
       extendBody: true,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomAppBar(
+      bottomNavigationBar: isShowing ? BottomAppBar(
         shape: const CircularNotchedRectangle(),
         notchMargin: 8.0,
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -92,7 +103,7 @@ class ScaffoldWithDoctorNavBar extends StatelessWidget {
             ),
           ],
         ),
-      ),
+      ) : null,
     );
   }
 
