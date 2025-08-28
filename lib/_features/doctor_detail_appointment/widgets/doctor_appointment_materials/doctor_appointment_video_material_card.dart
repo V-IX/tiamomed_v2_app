@@ -7,15 +7,21 @@ import '../../../../utils/other/file_utils.dart';
 import '../../models/doctor_video_material.dart';
 
 class DoctorAppointmentVideoMaterialCard extends StatelessWidget {
-  const DoctorAppointmentVideoMaterialCard({super.key, required this.videoMaterial, required this.onCheckTap});
+  const DoctorAppointmentVideoMaterialCard({
+    super.key,
+    required this.videoMaterial,
+    required this.onCheckTap,
+    required this.onTap,
+  });
 
   final DoctorVideoMaterial videoMaterial;
   final VoidCallback onCheckTap;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: onTap,
       child: Container(
         decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10)),
         child: Row(
@@ -73,7 +79,7 @@ class DoctorAppointmentVideoMaterialCard extends StatelessWidget {
                   shape: const CircleBorder(),
                   splashRadius: 20,
                   overlayColor: WidgetStateColor.resolveWith(
-                        (Set<WidgetState> states) => const Color(0xFFD8E2A2),
+                    (Set<WidgetState> states) => const Color(0xFFD8E2A2),
                   ),
                   activeColor: const Color(0xFFD8E2A2),
                   checkColor: const Color(0xFF9EB23B),

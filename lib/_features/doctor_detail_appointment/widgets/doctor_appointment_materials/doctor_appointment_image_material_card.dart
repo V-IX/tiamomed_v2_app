@@ -7,15 +7,21 @@ import '../../../../utils/other/file_utils.dart';
 import '../../models/doctor_image_material.dart';
 
 class DoctorAppointmentImageMaterialCard extends StatelessWidget {
-  const DoctorAppointmentImageMaterialCard({super.key, required this.imageMaterial, required this.onCheckTap});
+  const DoctorAppointmentImageMaterialCard({
+    super.key,
+    required this.imageMaterial,
+    required this.onCheckTap,
+    required this.onTap,
+  });
 
   final DoctorImageMaterial imageMaterial;
   final VoidCallback onCheckTap;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: onTap,
       child: Container(
         decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10)),
         child: Row(

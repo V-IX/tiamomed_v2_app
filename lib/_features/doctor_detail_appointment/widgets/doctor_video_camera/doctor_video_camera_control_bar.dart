@@ -5,9 +5,10 @@ import 'package:go_router/go_router.dart';
 import '../../routes/doctor_video_camera_result_route.dart';
 
 class DoctorVideoCameraControlBar extends StatefulWidget {
-  const DoctorVideoCameraControlBar({super.key, required this.cameraController});
+  const DoctorVideoCameraControlBar({super.key, required this.cameraController, required this.startTimer});
 
   final CameraController cameraController;
+  final VoidCallback startTimer;
 
   @override
   State<DoctorVideoCameraControlBar> createState() => _DoctorVideoCameraControlBarState();
@@ -19,14 +20,15 @@ class _DoctorVideoCameraControlBarState extends State<DoctorVideoCameraControlBa
   Future<void> _recordTap() async {
     if (widget.cameraController.value.isRecordingVideo) {
       final XFile file = await widget.cameraController.stopVideoRecording();
-
+      await widget.cameraController.dispose();
       if (mounted) {
-        context.goNamed(DoctorVideoCameraResultRoute.name, extra: file);
+        context.replaceNamed(DoctorVideoCameraResultRoute.name, extra: file);
       }
 
     } else {
       await widget.cameraController.prepareForVideoRecording();
       await widget.cameraController.startVideoRecording();
+      widget.startTimer();
     }
   }
 

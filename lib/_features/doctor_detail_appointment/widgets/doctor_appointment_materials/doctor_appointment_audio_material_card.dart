@@ -5,13 +5,15 @@ import 'package:path/path.dart' as p;
 import '../../../../utils/other/file_utils.dart';
 import '../../models/doctor_audio_material.dart';
 
-class AudioRecordMaterialCard extends StatelessWidget {
-  const AudioRecordMaterialCard({
-    super.key, required this.audioMaterial, required this.onCheckTap,
+class DoctorAppointmentAudioMaterialCard extends StatelessWidget {
+  const DoctorAppointmentAudioMaterialCard({
+    super.key, required this.audioMaterial, required this.onCheckTap, required this.onTap,
   });
 
   final DoctorAudioMaterial audioMaterial;
   final VoidCallback onCheckTap;
+  final VoidCallback onTap;
+
 
   @override
   Widget build(BuildContext context){
@@ -27,7 +29,7 @@ class AudioRecordMaterialCard extends StatelessWidget {
             children: <Widget>[
               Flexible(
                 child: IconButton(
-                  onPressed: () {},
+                  onPressed: onTap,
                   icon: const Icon(Icons.play_arrow),
                 ),
               ),

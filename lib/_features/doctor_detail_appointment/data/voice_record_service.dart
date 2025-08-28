@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:record/record.dart';
 
@@ -21,10 +22,10 @@ class VoiceRecordService {
       final String filePath;
 
       if(folderPath.existsSync()){
-        filePath = '${folderPath.path}${DateTime.now()}_audio.m4p';
+        filePath = '${folderPath.path}AUDIO_${DateFormat("yyyyMMdd_hhmmss").format(DateTime.now())}.m4p';
       } else {
         final Directory newFolderPath = await folderPath.create(recursive: true);
-        filePath = '${newFolderPath.path}${DateTime.now()}_audio.m4p';
+        filePath = '${newFolderPath.path}AUDIO_${DateFormat("yyyyMMdd_hhmmss").format(DateTime.now())}.m4p';
       }
 
       await _record.start(

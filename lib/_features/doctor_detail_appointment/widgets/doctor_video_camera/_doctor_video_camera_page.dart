@@ -1,5 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 
 import 'doctor_video_camera_view.dart';
 
@@ -24,15 +25,18 @@ class _DoctorVideoCameraPageState extends State<DoctorVideoCameraPage> {
 
   @override
   void dispose() {
-    _disposeCameraAndNavigate();
+    _disposeCamera();
     super.dispose();
   }
 
-  Future<void> _disposeCameraAndNavigate() async {
-    if (_cameraController.value.isRecordingVideo) {
-      await _cameraController.stopVideoRecording();
-    }
-    await _cameraController.dispose();
+  Future<void> _disposeCamera() async {
+      if (_cameraController.value.isRecordingVideo) {
+        await _cameraController.stopVideoRecording();
+      }
+
+      if(_cameraController.value.isInitialized) {
+        await _cameraController.dispose();
+      }
   }
 
 
@@ -40,7 +44,7 @@ class _DoctorVideoCameraPageState extends State<DoctorVideoCameraPage> {
   Future<void> _initCamera() async {
     try {
       final List<CameraDescription> cameras = await availableCameras();
-      final CameraDescription back = cameras.firstWhere((CameraDescription camera) => camera.lensDirection == CameraLensDirection.back);
+      final CameraDescription back = cameras[0];
       _cameraController = CameraController(back, ResolutionPreset.high);
       await _cameraController.initialize();
       setState(() => _isLoading = false);
@@ -54,7 +58,7 @@ class _DoctorVideoCameraPageState extends State<DoctorVideoCameraPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: switch(_isLoading) {
+      body: switch(_isLoading || !_cameraController.value.isInitialized) {
         true => const Center(child: CircularProgressIndicator()),
         false => DoctorVideoCameraView(cameraController: _cameraController),
       },

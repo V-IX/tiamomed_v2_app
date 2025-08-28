@@ -1,0 +1,1 @@
+const String certificateBgImagePath = 'assets/images/certificate_bg.png';

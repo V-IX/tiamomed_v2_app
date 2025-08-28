@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
@@ -5,23 +7,38 @@ import '../../../../utils/other/date_util.dart';
 import 'doctor_video_camera_control_bar.dart';
 import 'video_camera_timer.dart';
 
-class DoctorVideoCameraView extends StatelessWidget {
+class DoctorVideoCameraView extends StatefulWidget {
   const DoctorVideoCameraView({super.key, required this.cameraController});
 
   final CameraController cameraController;
+
+  @override
+  State<DoctorVideoCameraView> createState() => _DoctorVideoCameraViewState();
+}
+
+class _DoctorVideoCameraViewState extends State<DoctorVideoCameraView> {
+
+  late Timer _timer;
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Stack(
         children: [
-          Align(child: CameraPreview(cameraController)),
-          if(cameraController.value.isRecordingVideo)
+          if(widget.cameraController.value.isInitialized)
+            Align(child: CameraPreview(widget.cameraController)),
+          if(widget.cameraController.value.isRecordingVideo)
             Positioned(
               top: 70,
               right: 0,
               left: 0,
-              child: VideoCameraTimer(timeInSecond: 1111),
+              child: VideoCameraTimer(timeInSecond: _timer.tick),
             )
           else
             Align(
@@ -49,7 +66,14 @@ class DoctorVideoCameraView extends StatelessWidget {
             left: 0,
             right: 0,
             child: DoctorVideoCameraControlBar(
-              cameraController: cameraController
+              cameraController: widget.cameraController,
+              startTimer: () {
+                _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+                  setState(() {
+
+                  });
+                });
+              },
             )
           )
         ],

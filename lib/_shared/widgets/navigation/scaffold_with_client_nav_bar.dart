@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../_features/client_home/routers/client_home_route.dart';
 import 'bottom_nav_item.dart';
 
 class ScaffoldWithClientNavBar extends StatelessWidget {
@@ -17,6 +18,16 @@ class ScaffoldWithClientNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final RouteMatch lastMatch = GoRouter.of(context).routerDelegate.currentConfiguration.last;
+    final RouteMatchList matchList = lastMatch is ImperativeRouteMatch
+        ? lastMatch.matches
+        : GoRouter.of(context).routerDelegate.currentConfiguration;
+    final String location = matchList.uri.toString();
+
+    final bool isShowing =
+        location.contains(ClientHomeRoute.name) ;
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: const Color(0xFFF8F8F8),

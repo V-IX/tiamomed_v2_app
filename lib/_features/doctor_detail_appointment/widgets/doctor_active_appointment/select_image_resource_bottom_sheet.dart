@@ -23,7 +23,10 @@ class SelectImageResourceBottomSheet extends StatelessWidget {
           child: Column(
             children: [
               GestureDetector(
-                onTap: addFromCameraCallback,
+                onTap: () {
+                  addFromCameraCallback();
+                  Navigator.pop(context);
+                },
                 child: Container(
                   color: Colors.transparent,
                   padding: const EdgeInsets.symmetric(vertical: 20.0),

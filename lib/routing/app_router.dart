@@ -6,6 +6,8 @@ import '../_features/auth/models/auth_user_type.dart';
 import '../_features/auth/routers/login_route.dart';
 import '../_features/auth/state/auth_bloc.dart';
 import '../_features/client_home/routers/client_home_route.dart';
+import '../_features/client_loyalty_program/routes/client_loyalty_program_route.dart';
+import '../_features/client_loyalty_program/widgets/_client_loyalty_program_page.dart';
 import '../_features/client_notifications/routes/client_notifications_route.dart';
 import '../_features/doctor_add_appointment/routes/select_doctor_for_add_appointment_route.dart';
 import '../_features/doctor_home/routes/doctor_home_route.dart';
@@ -38,6 +40,12 @@ class AppRouter {
                 ClientNotificationsRoute.route
               ],
             ),
+            StatefulShellBranch(
+              routes: <RouteBase>[
+                ClientLoyaltyProgramRoute.route
+              ],
+            ),
+
           ],
         ),
         StatefulShellRoute.indexedStack(
