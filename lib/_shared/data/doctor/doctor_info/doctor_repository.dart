@@ -1,7 +1,7 @@
-import '../../../_shared/models/doctor/cabinet.dart';
-import '../../../_shared/models/doctor/datetime_interval.dart';
-import '../../../_shared/models/doctor/doctor_service.dart';
-import '../models/doctor.dart';
+import '../../../models/doctor/cabinet.dart';
+import '../../../models/doctor/datetime_interval.dart';
+import '../../../models/doctor/doctor_service.dart';
+import '../../../models/doctor/doctor.dart';
 import 'doctor_api_service.dart';
 
 class DoctorRepository {

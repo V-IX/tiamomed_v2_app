@@ -1,8 +1,11 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../auth/models/auth_user_type.dart';
+import '../../auth/state/auth_bloc.dart';
 import '../../client_feedback/routes/client_feedback_route.dart';
 import '../../client_files/routes/client_files_route.dart';
 import '../../client_visit_history/routes/client_visit_history_route.dart';
@@ -25,6 +28,43 @@ class ClientHomePage extends StatelessWidget {
               delegate: SliverChildListDelegate(
                 <Widget>[
                   const ClientHomeBonusCountCard(),
+                  const SizedBox(height:16),
+                  BlocBuilder<AuthBloc, AuthState>(
+                      builder: (context, state) {
+                        if(state is Authenticated && state.userType.userType == UserType.sellerClient) {
+                          return Ink(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(100),
+                              ),
+                              child: InkWell(
+                                borderRadius: BorderRadius.circular(100),
+                                onTap: (){},
+                                child: Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const Text('Продвижение услуг'),
+                                      const SizedBox(width: 22),
+                                      Container(
+                                        padding: const EdgeInsets.all(8),
+                                        decoration: const BoxDecoration(
+                                          color: Colors.black12,
+                                          shape: BoxShape.circle
+                                        ),
+                                        child: const Icon(Icons.chevron_right),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              )
+                          );
+                        } else {
+                          return const SizedBox();
+                        }
+                      }
+                  ),
                   const SizedBox(height:16),
                   Row(
                     spacing: 16,

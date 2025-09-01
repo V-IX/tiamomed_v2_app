@@ -1,8 +1,8 @@
-import '../../../_shared/models/doctor/cabinet.dart';
-import '../../../_shared/models/doctor/datetime_interval.dart';
-import '../../../_shared/models/doctor/doctor_service.dart';
-import '../../../utils/api_client/api_client.dart';
-import '../models/doctor.dart';
+import '../../../models/doctor/cabinet.dart';
+import '../../../models/doctor/datetime_interval.dart';
+import '../../../models/doctor/doctor_service.dart';
+import '../../../../utils/api_client/api_client.dart';
+import '../../../models/doctor/doctor.dart';
 
 class DoctorApiService {
   DoctorApiService({required ApiClient apiClient}) : _apiClient = apiClient;

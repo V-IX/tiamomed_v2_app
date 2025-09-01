@@ -4,7 +4,7 @@ import 'package:nested/nested.dart';
 import 'package:provider/provider.dart' as provider;
 
 import '../../../_shared/di/doctor_appointments_providers.dart';
-import '../../doctor_profile/di/doctor_provider.dart';
+import '../../../_shared/di/doctor_provider.dart';
 import '../state/doctor_add_appointment/doctor_add_appointment_bloc.dart';
 
 class DoctorAddAppointmentDiWrapper extends StatelessWidget {

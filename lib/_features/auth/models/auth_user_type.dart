@@ -1,6 +1,7 @@
 enum UserType  {
   doctor,
-  client
+  client,
+  sellerClient
 }
 
 class AuthUserType {

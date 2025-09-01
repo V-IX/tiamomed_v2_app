@@ -5,7 +5,7 @@ import '../../client_add_appointment/routes/client_select_doctor_for_add_appoint
 import '../../client_home/routers/client_home_route.dart';
 import '../widgets/_service_details_page.dart';
 
-class ServiceDetailsRoute {
+class ClientServiceDetailsRoute {
   static const String name = 'service_details';
 
   static final GoRoute route = GoRoute(
@@ -15,7 +15,7 @@ class ServiceDetailsRoute {
       final String serviceId = state.pathParameters['service_id']!;
       return ServiceDetailsPage(serviceId: serviceId);
     },
-    routes: [
+    routes: <RouteBase>[
       ClientSelectDoctorForAddAppointmentRoute.route,
     ]
   );

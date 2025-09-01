@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../_shared/models/doctor/doctor_appointment.dart';
 import '../../doctor_detail_appointment/routes/doctor_detail_appointment_route.dart';
-import '../../doctor_profile/models/doctor.dart';
+import '../../../_shared/models/doctor/doctor.dart';
 import 'appointment_card.dart';
 import 'home_doctor_card.dart';
 

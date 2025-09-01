@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart' as bloc;
+import 'package:go_router/go_router.dart';
 import 'package:nested/nested.dart';
 import 'package:provider/provider.dart' as provider;
 
+import '../../client_add_appointment/routes/client_select_doctor_for_add_appointment_route.dart';
 import '../data/client_service_details_repository.dart';
 import '../di/client_service_details_provider.dart';
 import '../state/client_service_details_bloc.dart';
@@ -31,9 +33,18 @@ class ServiceDetailsPage extends StatelessWidget {
           floatingActionButton: Padding(
             padding: const EdgeInsets.only(left: 22, right: 22),
             child: SizedBox(
-                width: double.infinity,
-                height: 54,
-                child: FilledButton(onPressed: () {}, child: const Text('Записаться'))),
+              width: double.infinity,
+              height: 54,
+              child: FilledButton(
+                onPressed: () {
+                  context.pushNamed(
+                    ClientSelectDoctorForAddAppointmentRoute.name,
+                    pathParameters: <String, String>{'service_id': serviceId},
+                  );
+                },
+                child: const Text('Записаться'),
+              ),
+            ),
           ),
           body: bloc.BlocBuilder<ClientServiceDetailsBloc, ClientServiceDetailsState>(
             builder: (BuildContext context, ClientServiceDetailsState state) {

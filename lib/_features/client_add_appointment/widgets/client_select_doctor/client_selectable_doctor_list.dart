@@ -3,12 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../_shared/data/doctor/doctor_info/doctor_repository.dart';
 import '../../../../_shared/models/doctor/doctor.dart';
-import '../../state/doctor_add_appointment/doctor_add_appointment_bloc.dart';
 import '../../../../_shared/state/doctors_for_add_appointment/doctors_for_add_appointment_cubit.dart';
-import 'selectable_doctor_card.dart';
+import '../../di/client_add_appointment_di_wrapper.dart';
+import '../../state/client_add_appointment/client_add_appointment_bloc.dart';
+import 'client_selectable_doctor_card.dart';
 
-class SelectableDoctorList extends StatelessWidget {
-  const SelectableDoctorList({super.key, this.selectedDoctor});
+class ClientSelectableDoctorList extends StatelessWidget {
+  const ClientSelectableDoctorList({super.key, this.selectedDoctor});
 
   final Doctor? selectedDoctor;
 
@@ -17,7 +18,7 @@ class SelectableDoctorList extends StatelessWidget {
     return BlocProvider<DoctorsForAddAppointmentCubit>(
       create: (BuildContext context) =>
           DoctorsForAddAppointmentCubit(doctorRepository: context.read<DoctorRepository>())
-            ..loadDoctors(null),
+            ..loadDoctors('asd'),
       child: BlocBuilder<DoctorsForAddAppointmentCubit, DoctorsForAddAppointmentState>(
         builder: (BuildContext context, DoctorsForAddAppointmentState doctorsState) {
           return switch (doctorsState) {
@@ -29,13 +30,13 @@ class SelectableDoctorList extends StatelessWidget {
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (BuildContext context, int index) {
-                return SelectableDoctorCard(
+                return ClientSelectableDoctorCard(
                   doctor: doctorsState.doctors[index],
                   isSelectedDoctor:
                       selectedDoctor?.id == doctorsState.doctors[index].id,
                   onTap: () {
-                    context.read<DoctorAddAppointmentBloc>().add(
-                      DoctorAddAppointmentSelectDoctorEvent(
+                    context.read<ClientAddAppointmentBloc>().add(
+                      ClientAddAppointmentSelectDoctorEvent(
                         doctor: doctorsState.doctors[index],
                       ),
                     );

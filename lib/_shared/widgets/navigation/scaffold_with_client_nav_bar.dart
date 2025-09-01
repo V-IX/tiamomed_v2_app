@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../_features/client_add_appointment/routes/client_select_doctor_for_add_appointment_route.dart';
 import '../../../_features/client_home/routers/client_home_route.dart';
 import '../../../_features/client_loyalty_program/routes/client_loyalty_program_route.dart';
 import '../../../_features/client_notifications/routes/client_notifications_route.dart';
@@ -41,7 +42,7 @@ class ScaffoldWithClientNavBar extends StatelessWidget {
         width: 64,
         child: FloatingActionButton(
           onPressed: (){
-            //context.push(Routers.newAppointmentSelectDoctorRoute.path);
+            context.pushNamed(ClientSelectDoctorForAddAppointmentRoute.name);
           },
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
           backgroundColor: const Color(0xFFFF0066),

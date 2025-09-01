@@ -6,7 +6,7 @@ import 'package:meta/meta.dart';
 
 import '../../../../_shared/models/doctor/doctor_service.dart';
 import '../../../../_shared/models/doctor/doctor_service_type.dart';
-import '../../data/doctor_repository.dart';
+import '../../../../_shared/data/doctor/doctor_info/doctor_repository.dart';
 
 part 'doctor_profile_services_state.dart';
 

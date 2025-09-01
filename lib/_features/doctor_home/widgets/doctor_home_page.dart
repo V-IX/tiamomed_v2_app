@@ -9,8 +9,8 @@ import 'package:swipe_refresh/swipe_refresh.dart';
 import '../../../_shared/data/doctor/doctor_appointments/doctor_appointments_repository.dart';
 import '../../../_shared/di/doctor_appointments_providers.dart';
 import '../../../_shared/widgets/navigation/custom_app_bar.dart';
-import '../../doctor_profile/data/doctor_repository.dart';
-import '../../doctor_profile/di/doctor_provider.dart';
+import '../../../_shared/data/doctor/doctor_info/doctor_repository.dart';
+import '../../../_shared/di/doctor_provider.dart';
 import '../state/doctor_home_bloc.dart';
 import 'doctor_home_loaded_content.dart';
 

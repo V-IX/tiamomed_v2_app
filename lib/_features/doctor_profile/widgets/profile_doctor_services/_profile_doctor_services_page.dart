@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../data/doctor_repository.dart';
+import '../../../../_shared/data/doctor/doctor_info/doctor_repository.dart';
 import '../../state/doctor_profile_services/doctor_profile_services_cubit.dart';
 
 class ProfileDoctorServiceTypesPage extends StatelessWidget {

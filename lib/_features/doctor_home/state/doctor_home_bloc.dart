@@ -4,8 +4,8 @@ import 'package:meta/meta.dart';
 
 import '../../../_shared/data/doctor/doctor_appointments/doctor_appointments_repository.dart';
 import '../../../_shared/models/doctor/doctor_appointment.dart';
-import '../../doctor_profile/data/doctor_repository.dart';
-import '../../doctor_profile/models/doctor.dart';
+import '../../../_shared/data/doctor/doctor_info/doctor_repository.dart';
+import '../../../_shared/models/doctor/doctor.dart';
 
 part 'doctor_home_event.dart';
 part 'doctor_home_state.dart';

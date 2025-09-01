@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../_shared/widgets/navigation/custom_app_bar.dart';
-import '../../models/doctor.dart';
+import '../../../../_shared/models/doctor/doctor.dart';
 import '../../routes/doctor_profile_cabinets_route.dart';
 import '../../routes/doctor_profile_datetime_intervals_route.dart';
 import 'doctor_category_card.dart';

@@ -6,9 +6,10 @@ const Color _inactiveColor = Color(0xFFC3C7CC);
 
 
 class ClientAddAppointmentStageIndicator extends StatelessWidget {
-  const ClientAddAppointmentStageIndicator({ required this.step, super.key });
+  const ClientAddAppointmentStageIndicator({ required this.step, this.isShowServices = true, super.key });
 
   final int step;
+  final bool isShowServices;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,19 @@ class ClientAddAppointmentStageIndicator extends StatelessWidget {
         color: Theme.of(context).colorScheme.surface,
       ),
       padding: const EdgeInsets.only(left: 22, right: 22, top: 20, bottom: 20),
-      child: Row(
+      child: isShowServices ?
+    Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          _buildStep(1, 'Доктор'),
+          _buildConnector(),
+          _buildStep(2, 'Услуги'),
+          _buildConnector(),
+          _buildStep(3, 'Дата'),
+          _buildConnector(),
+          _buildStep(4, 'Итог'),
+        ]) :
+        Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             _buildStep(1, 'Доктор'),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../_shared/widgets/navigation/custom_app_bar.dart';
-import '../../data/doctor_repository.dart';
+import '../../../../_shared/data/doctor/doctor_info/doctor_repository.dart';
 import '../../state/doctor_profile_cabinets/doctor_profile_cabinets_cubit.dart';
 import 'doctor_profile_cabinets_list.dart';
 

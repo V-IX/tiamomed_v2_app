@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../../../../_shared/widgets/other/image_loader.dart';
 import '../../../../_shared/models/doctor/doctor.dart';
 
-class SelectableDoctorCard extends StatelessWidget {
-  const SelectableDoctorCard({
+class ClientSelectableDoctorCard extends StatelessWidget {
+  const ClientSelectableDoctorCard({
     super.key,
     required this.doctor, required this.isSelectedDoctor, required this.onTap
   });

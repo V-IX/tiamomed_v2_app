@@ -4,7 +4,7 @@ import 'package:logger/logger.dart';
 import 'package:meta/meta.dart';
 
 import '../../../../_shared/models/doctor/datetime_interval.dart';
-import '../../data/doctor_repository.dart';
+import '../../../../_shared/data/doctor/doctor_info/doctor_repository.dart';
 
 part 'doctor_profile_datetime_intervals_state.dart';
 

@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../client_service_details/routes/service_details_route.dart';
 import 'service_category_card.dart';
 
 class ServiceCategoriesPage extends StatelessWidget {
@@ -32,9 +33,8 @@ class ServiceCategoriesPage extends StatelessWidget {
                       );
                     } else {
                       context.pushNamed(
-                        'service_details',
+                        ClientServiceDetailsRoute.name,
                         pathParameters: <String, String>{
-                          "id": categoryId,
                           'service_id': Random.secure().nextInt(1000).toString(),
                         },
                       );

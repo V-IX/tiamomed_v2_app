@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
 import '../../../../_shared/models/doctor/doctor_service.dart';
-import '../../../doctor_profile/models/doctor.dart';
+import '../../../../_shared/models/doctor/doctor.dart';
 
 part 'doctor_add_appointment_event.dart';
 part 'doctor_add_appointment_state.dart';

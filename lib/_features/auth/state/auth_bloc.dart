@@ -24,7 +24,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       emit(AuthLoading());
       await _authRepository.checkToken();
-      emit(Authenticated(userType: AuthUserType(userType: UserType.client)));
+      emit(Authenticated(userType: AuthUserType(userType: UserType.sellerClient)));
     } catch(error) {
       emit(Unauthenticated());
     }
@@ -34,7 +34,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       emit(AuthLoading());
       await _authRepository.logIn(login: event.login, password: event.password);
-      emit(Authenticated(userType: AuthUserType(userType: UserType.client)));
+      emit(Authenticated(userType: AuthUserType(userType: UserType.sellerClient)));
     } catch(error) {
       final String message = error.toString().replaceAll('Exception: ', '').replaceAll('|', ' ');
       emit(AuthError(message: message));

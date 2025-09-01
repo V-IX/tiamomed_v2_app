@@ -3,7 +3,7 @@ import 'package:logger/logger.dart';
 import 'package:meta/meta.dart';
 
 import '../../../../_shared/models/doctor/cabinet.dart';
-import '../../data/doctor_repository.dart';
+import '../../../../_shared/data/doctor/doctor_info/doctor_repository.dart';
 
 part 'doctor_profile_cabinets_state.dart';
 

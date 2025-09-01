@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../models/doctor.dart';
+import '../../../../_shared/models/doctor/doctor.dart';
 
 class ProfileDoctorCard extends StatelessWidget {
   const ProfileDoctorCard({super.key, required this.doctor});

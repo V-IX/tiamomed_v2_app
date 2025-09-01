@@ -4,7 +4,7 @@ import 'package:meta/meta.dart';
 
 import '../../../../_shared/models/doctor/datetime_interval.dart';
 import '../../../../_shared/models/doctor/doctor_service.dart';
-import '../../../doctor_profile/data/doctor_repository.dart';
+import '../../../../_shared/data/doctor/doctor_info/doctor_repository.dart';
 
 part 'doctor_time_intervals_for_add_appointment_state.dart';
 

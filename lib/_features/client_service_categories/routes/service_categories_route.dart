@@ -16,8 +16,5 @@ class ServiceCategoriesRoute {
         final String categoryId = state.pathParameters['id']!;
         return ServiceCategoriesPage(categoryId: categoryId);
       },
-      routes: <RouteBase>[
-        ServiceDetailsRoute.route,
-      ]
   );
 }
