@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../_features/client_home/routers/client_home_route.dart';
+import '../../../_features/client_loyalty_program/routes/client_loyalty_program_route.dart';
+import '../../../_features/client_notifications/routes/client_notifications_route.dart';
 import 'bottom_nav_item.dart';
 
 class ScaffoldWithClientNavBar extends StatelessWidget {
@@ -26,13 +28,15 @@ class ScaffoldWithClientNavBar extends StatelessWidget {
     final String location = matchList.uri.toString();
 
     final bool isShowing =
-        location.contains(ClientHomeRoute.name) ;
+      location == ClientHomeRoute.path ||
+      location == ClientNotificationsRoute.path ||
+      location == ClientLoyaltyProgramRoute.path;
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: const Color(0xFFF8F8F8),
       body: navigationShell,
-      floatingActionButton: SizedBox(
+      floatingActionButton: isShowing ? SizedBox(
         height: 64,
         width: 64,
         child: FloatingActionButton(
@@ -43,10 +47,10 @@ class ScaffoldWithClientNavBar extends StatelessWidget {
           backgroundColor: const Color(0xFFFF0066),
           child: const Icon(Icons.add),
         ),
-      ),
+      ) : null,
       extendBody: true,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomAppBar(
+      bottomNavigationBar: isShowing ? BottomAppBar(
         shape: const CircularNotchedRectangle(),
         notchMargin: 8.0,
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -102,7 +106,7 @@ class ScaffoldWithClientNavBar extends StatelessWidget {
             ),
           ],
         ),
-      ),
+      ) : null,
     );
   }
 

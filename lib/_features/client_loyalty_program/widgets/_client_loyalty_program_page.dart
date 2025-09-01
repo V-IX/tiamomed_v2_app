@@ -43,6 +43,7 @@ class _ClientLoyaltyProgramPageState extends State<ClientLoyaltyProgramPage>
               margin: const EdgeInsets.all(22),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(50),
+                //todo male theme
                 color: const Color(0xFFEDEDED),
               ),
               child: TabBar(

@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 
+import '../../client_bonuses/routes/client_bonuses_route.dart';
 import '../../client_feedback/routes/client_feedback_route.dart';
 import '../../client_files/routes/client_files_route.dart';
 import '../../client_service_categories/routes/service_categories_route.dart';
@@ -19,6 +20,7 @@ class ClientHomeRoute {
       ClientVisitHistoryRoute.route,
       ClientFilesRoute.route,
       ClientFeedbackRoute.route,
+      ClientBonusesRoute.route
     ]
   );
 }

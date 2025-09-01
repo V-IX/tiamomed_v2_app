@@ -3,10 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../_features/doctor_add_appointment/routes/select_doctor_for_add_appointment_route.dart';
 import '../../../_features/doctor_detail_appointment/routes/doctor_active_appointment_route.dart';
-import '../../../_features/doctor_detail_appointment/routes/doctor_photo_camera_route.dart';
 import '../../../_features/doctor_detail_appointment/routes/doctor_video_camera_route.dart';
-import '../../../_features/doctor_detail_appointment/routes/doctor_voice_recording_route.dart';
-import '../../../_features/doctor_detail_appointment/widgets/doctor_appointent_image_gallery/doctor_appointment_image_gallery_page.dart';
 import 'bottom_nav_item.dart';
 
 class ScaffoldWithDoctorNavBar extends StatelessWidget {
