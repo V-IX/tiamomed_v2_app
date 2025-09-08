@@ -12,5 +12,6 @@ final Provider<AuthRepository> authRepositoryProvider = Provider<AuthRepository>
   create: (BuildContext context) =>
     AuthRepository(
       authApiService: context.read(),
+      secureStorageService: context.read(),
     ),
 );

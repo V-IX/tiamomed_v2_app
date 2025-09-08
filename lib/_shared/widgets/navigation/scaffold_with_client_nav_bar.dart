@@ -5,6 +5,7 @@ import '../../../_features/client_add_appointment/routes/client_select_doctor_fo
 import '../../../_features/client_home/routers/client_home_route.dart';
 import '../../../_features/client_loyalty_program/routes/client_loyalty_program_route.dart';
 import '../../../_features/client_notifications/routes/client_notifications_route.dart';
+import '../../../_features/client_profile/routes/client_profile_route.dart';
 import 'bottom_nav_item.dart';
 
 class ScaffoldWithClientNavBar extends StatelessWidget {
@@ -31,11 +32,11 @@ class ScaffoldWithClientNavBar extends StatelessWidget {
     final bool isShowing =
       location == ClientHomeRoute.path ||
       location == ClientNotificationsRoute.path ||
-      location == ClientLoyaltyProgramRoute.path;
+      location == ClientLoyaltyProgramRoute.path ||
+      location == ClientProfileRoute.path;
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: const Color(0xFFF8F8F8),
       body: navigationShell,
       floatingActionButton: isShowing ? SizedBox(
         height: 64,
@@ -44,18 +45,18 @@ class ScaffoldWithClientNavBar extends StatelessWidget {
           onPressed: (){
             context.pushNamed(ClientSelectDoctorForAddAppointmentRoute.name);
           },
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
           backgroundColor: const Color(0xFFFF0066),
-          child: const Icon(Icons.add),
+          child: const Icon(Icons.add, color: Colors.white),
         ),
       ) : null,
       extendBody: true,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: isShowing ? BottomAppBar(
-        shape: const CircularNotchedRectangle(),
         notchMargin: 8.0,
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         height: 70,
+        color: Colors.white,
         surfaceTintColor: Colors.white,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -82,7 +83,7 @@ class ScaffoldWithClientNavBar extends StatelessWidget {
                 index: 1,
               ),
             ),
-
+            SizedBox(width: 44),
             Expanded(
               child: BottomNavItem(
                 isSelected: 2 == navigationShell.currentIndex,

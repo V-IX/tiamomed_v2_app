@@ -28,13 +28,10 @@ class FeedbackImagePicker extends StatelessWidget {
           return Stack(
             clipBehavior: Clip.none,
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(10.0),
-                child: SizedBox(
-                  width: 86,
-                  height: 86,
-                  child: Image.file(File(images[index]), fit: BoxFit.cover),
-                ),
+              SizedBox(
+                width: 86,
+                height: 86,
+                child: Image.file(File(images[index]), fit: BoxFit.cover),
               ),
               Positioned(
                 top: -10,
@@ -66,10 +63,7 @@ class FeedbackImagePicker extends StatelessWidget {
             child: Container(
               width: 86,
               height: 86,
-              decoration: BoxDecoration(
-                color: const Color(0xFFEDEDED),
-                borderRadius: BorderRadius.circular(10.0),
-              ),
+              color: Colors.white,
               child: const Icon(Icons.add_circle_outline, size: 30, color: Colors.grey),
             ),
           );

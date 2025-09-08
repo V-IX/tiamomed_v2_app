@@ -52,7 +52,7 @@ class _ClientHomeSearchTextFieldState extends State<ClientHomeSearchTextField> {
 
 
             return Padding(
-              padding: EdgeInsets.only(left: 16, right: 16, top: MediaQuery.of(context).viewPadding.top),
+              padding: EdgeInsets.only(top: MediaQuery.of(context).viewPadding.top),
               child: SearchAnchor(
                   searchController: _searchController,
                   viewOnSubmitted: (String text) {
@@ -67,11 +67,11 @@ class _ClientHomeSearchTextFieldState extends State<ClientHomeSearchTextField> {
                   },
                   builder: (BuildContext context, SearchController controller) {
                     return SearchBar(
-                      hintText: 'Найдите товар',
+                      hintText: 'Поиск услуг...',
                       leading: const Icon(Icons.search, color: Colors.black45),
-                      shape: WidgetStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(14))),
+                      shape: WidgetStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(0))),
                       padding: const WidgetStatePropertyAll(EdgeInsets.symmetric(horizontal: 14)),
-                      backgroundColor: const WidgetStatePropertyAll(Color(0xFFEBF0F5)),
+                      backgroundColor: const WidgetStatePropertyAll(Colors.white),
                       shadowColor: const WidgetStatePropertyAll(Colors.transparent),
                       controller: _searchController,
                       onTap: () {

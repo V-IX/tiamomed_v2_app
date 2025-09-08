@@ -18,3 +18,23 @@ class LogInEvent extends AuthEvent {
 class CheckAuthEvent extends AuthEvent {}
 
 class LogOutEvent extends AuthEvent {}
+
+class LogInWithPhoneAndBDayEvent extends AuthEvent {
+  LogInWithPhoneAndBDayEvent({
+    required this.phone,
+    required this.bday
+  });
+
+  final String phone;
+  final String bday;
+
+}
+
+class CheckSmsCodeEvent extends AuthEvent {
+  CheckSmsCodeEvent({
+    required this.smsCode
+  });
+
+  final String smsCode;
+
+}

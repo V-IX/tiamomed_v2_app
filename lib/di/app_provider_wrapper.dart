@@ -5,6 +5,8 @@ import 'package:provider/provider.dart';
 
 import '../../_features/auth/di/auth_provider.dart';
 import '../../constants/urls.dart';
+import '../_features/auth/state/auth_bloc.dart';
+import '../_shared/data/secure_storage/secure_storage_service.dart';
 import '../utils/api_client/api_client.dart';
 
 
@@ -20,13 +22,18 @@ class AppProviderWrapper extends StatelessWidget {
 
     return MultiProvider(
       providers: <SingleChildWidget>[
+        Provider<SecureStorageService>(
+          create: (BuildContext context) => SecureStorageService(),
+        ),
         Provider<ApiClient>(
           create: (BuildContext context) => ApiClient(
             baseUrl: BASE_URL,
             headers: <String, String>{
               'Login': login,
               'Password': password
-            }
+            },
+            flutterSecureStorage: context.read(),
+            logOutCallback:() => context.read<AuthBloc>().add(LogOutEvent()),
           )
         ),
         authApiServiceProvider,

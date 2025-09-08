@@ -19,7 +19,7 @@ class FeedbackStarsSelector extends StatelessWidget {
               Icons.star,
               size: 48,
               color: i > selectedStarCount
-                ? const Color(0xFFEDEDED)
+                ? Colors.white
                 : Theme.of(context).colorScheme.primary,
             ),
             onTap: () => starTap(i)

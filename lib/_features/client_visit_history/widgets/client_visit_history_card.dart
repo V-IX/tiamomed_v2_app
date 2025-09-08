@@ -15,18 +15,21 @@ class ClientVisitHistoryCard extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(22),
         width: double.infinity,
-        decoration: BoxDecoration(
-          color: Colors.black12,
-          borderRadius: BorderRadius.circular(16),
-        ),
+        color: Colors.white,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(data.date),
-            Text("+ " + data.bonuses.toString() + " бонусов"),
-          ]
-        )
-      )
+            Text(data.date, style: Theme.of(context).textTheme.titleLarge),
+            Text(
+              '+ ${data.bonuses} бонусов',
+              style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                color: Theme.of(context).colorScheme.primary,
+                fontWeight: FontWeight.w900,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:barcode_widget/barcode_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
@@ -19,16 +20,16 @@ class ClientSeasonTicketCard extends StatelessWidget {
           barrierDismissible: true, // закрыть по тапу вне QR
           builder: (_) {
             return Center(
-              child: Container(
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: QrImageView(
-                  data: clientSeasonTicket.url,
-                  size: 250, // размер QR в диалоге
-                  backgroundColor: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.all(22.0),
+                child: BarcodeWidget(
+                  data: clientSeasonTicket.barcode,
+                  barcode: Barcode.code128(),
+                  padding: const EdgeInsets.all(22),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                  ),
+                  height: 200,
                 ),
               ),
             );
@@ -39,7 +40,6 @@ class ClientSeasonTicketCard extends StatelessWidget {
         padding: const EdgeInsets.all(22),
         width: double.infinity,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(14),
           color: Theme.of(context).colorScheme.primary,
           image: const DecorationImage(
             image: AssetImage(certificateBgImagePath),
@@ -58,42 +58,39 @@ class ClientSeasonTicketCard extends StatelessWidget {
                 children: [
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 14),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                      color: Colors.white,
-                    ),
-                    child: Text(clientSeasonTicket.id),
+                    color: Colors.white,
+                    child: Text("№${clientSeasonTicket.barcode}"),
                   ),
                   Text(
                     'Годен до ${clientSeasonTicket.validDate}',
                     style: const TextStyle(color: Colors.white),
                   ),
-                  const SizedBox(height: 22),
-                  RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: clientSeasonTicket.count,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 50,
-                          ),
-                        ),
-                        const TextSpan(
-                          text: ' руб.',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w400,
-                            fontSize: 20,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Text(
-                      'Узнать подробнее об услугах',
-                    style: const TextStyle(
+                  const SizedBox(height: 44),
+                  // RichText(
+                  //   text: TextSpan(
+                  //     children: [
+                  //       TextSpan(
+                  //         text: "1",
+                  //         style: const TextStyle(
+                  //           color: Colors.white,
+                  //           fontWeight: FontWeight.w700,
+                  //           fontSize: 50,
+                  //         ),
+                  //       ),
+                  //       const TextSpan(
+                  //         text: ' руб.',
+                  //         style: TextStyle(
+                  //           color: Colors.white,
+                  //           fontWeight: FontWeight.w400,
+                  //           fontSize: 20,
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
+                  const Text(
+                    'Узнать подробнее об услугах',
+                    style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.w400,
                       fontSize: 18,
@@ -103,14 +100,16 @@ class ClientSeasonTicketCard extends StatelessWidget {
               ),
             ),
             Flexible(
-              flex: 3,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: QrImageView(
-                  data: clientSeasonTicket.url,
-                  padding: const EdgeInsets.all(12),
-                  backgroundColor: Colors.white,
+              flex: 4,
+              child: BarcodeWidget(
+                data: clientSeasonTicket.barcode,
+                barcode: Barcode.code128(),
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Colors.white,
                 ),
+                style: TextStyle(fontSize: 0),
+                height: 100,
               ),
             ),
           ],

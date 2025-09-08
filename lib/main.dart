@@ -19,8 +19,9 @@ void main() async {
       child: bloc.MultiBlocProvider(
         providers: <SingleChildWidget>[
           bloc.BlocProvider<AuthBloc>(
-            create: (BuildContext context) =>
-                AuthBloc(authRepository: context.read())..add(CheckAuthEvent()),
+            create: (BuildContext context) {
+              return AuthBloc(authRepository: context.read())..add(CheckAuthEvent());
+            }
           ),
         ],
         child: provider.ChangeNotifierProvider<AuthListener>(

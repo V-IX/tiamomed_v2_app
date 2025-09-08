@@ -1,4 +1,10 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
 part of 'additional_info.dart';
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
 
 AdditionalInfo _$AdditionalInfoFromJson(Map<String, dynamic> json) =>
     AdditionalInfo(kod: json['Kod'] as String, name: json['Name'] as String);

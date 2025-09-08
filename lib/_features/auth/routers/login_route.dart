@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../widgets/auth_page.dart';
+import 'check_sms_code_route.dart';
 
 class LoginRoute {
   LoginRoute._();
@@ -11,6 +12,9 @@ class LoginRoute {
   static final GoRoute route = GoRoute(
     path: path,
     builder: (BuildContext context, GoRouterState state) => const AuthPage(),
+    routes: [
+      CheckSmsCodeRoute.route
+    ]
   );
 
 }

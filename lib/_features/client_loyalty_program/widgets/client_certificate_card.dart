@@ -1,3 +1,4 @@
+import 'package:barcode_widget/barcode_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
@@ -19,16 +20,14 @@ class ClientCertificateCard extends StatelessWidget {
           barrierDismissible: true, // закрыть по тапу вне QR
           builder: (_) {
             return Center(
-              child: Container(
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
+              child: Padding(
+                padding: const EdgeInsets.all(22.0),
+                child: BarcodeWidget(
+                  data: certificate.barcode,
+                  barcode: Barcode.code128(),
+                  padding: const EdgeInsets.all(22),
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: QrImageView(
-                  data: certificate.certificateUrl,
-                  size: 250, // размер QR в диалоге
-                  backgroundColor: Colors.white,
+                  height: 200,
                 ),
               ),
             );
@@ -39,7 +38,6 @@ class ClientCertificateCard extends StatelessWidget {
         padding: const EdgeInsets.all(22),
         width: double.infinity,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(14),
           color: Theme.of(context).colorScheme.primary,
           image: const DecorationImage(
             image: AssetImage(certificateBgImagePath),
@@ -58,14 +56,11 @@ class ClientCertificateCard extends StatelessWidget {
                 children: [
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 14),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                      color: Colors.white,
-                    ),
-                    child: Text(certificate.id),
+                    color: Colors.white,
+                    child: Text("№${certificate.barcode}"),
                   ),
                   Text(
-                    'Годен до ${certificate.validDate}',
+                    'Годен до ${certificate.endDate}',
                     style: const TextStyle(color: Colors.white),
                   ),
                   const SizedBox(height: 22),
@@ -103,14 +98,16 @@ class ClientCertificateCard extends StatelessWidget {
               ),
             ),
             Flexible(
-              flex: 3,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: QrImageView(
-                  data: certificate.certificateUrl,
-                  padding: const EdgeInsets.all(12),
-                  backgroundColor: Colors.white,
+              flex: 4,
+              child: BarcodeWidget(
+                data: certificate.barcode,
+                barcode: Barcode.code128(),
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Colors.white,
                 ),
+                style: TextStyle(fontSize: 0),
+                height: 100,
               ),
             ),
           ],
