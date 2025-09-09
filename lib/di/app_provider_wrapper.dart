@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/widgets.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:nested/nested.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../_features/auth/di/auth_provider.dart';
@@ -17,6 +20,7 @@ class AppProviderWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final String login = dotenv.get('API_LOGIN');
     final String password = dotenv.get('API_PASSWORD');
 

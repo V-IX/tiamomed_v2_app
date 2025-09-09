@@ -6,9 +6,9 @@ sealed class ClientBonusesState {}
 final class ClientBonusesInitial extends ClientBonusesState {}
 final class ClientBonusesLoading extends ClientBonusesState {}
 final class ClientBonusesLoaded extends ClientBonusesState {
-  ClientBonusesLoaded({required this.bonusesHistory, required this.burningBonuses});
+  ClientBonusesLoaded({required this.history, required this.burningBonuses});
 
-  final List<ClientBonusesHistoryItem> bonusesHistory;
+  final ClientBonusesHistory history;
   final List<ClientBonusesHistoryItem> burningBonuses;
 }
 

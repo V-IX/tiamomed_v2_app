@@ -18,8 +18,6 @@ class AuthApiService {
 
   Future<String> sendSmsCode({required String phone, required String bday}) async {
     try {
-      print(phone);
-      print(bday);
       final Response<dynamic> response = await _apiClient.post(
         clientSendSmsUrl,
         data: FormData.fromMap({

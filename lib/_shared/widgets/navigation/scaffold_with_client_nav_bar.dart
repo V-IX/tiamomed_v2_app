@@ -45,8 +45,8 @@ class ScaffoldWithClientNavBar extends StatelessWidget {
           onPressed: (){
             context.pushNamed(ClientSelectDoctorForAddAppointmentRoute.name);
           },
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
-          backgroundColor: const Color(0xFFFF0066),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+          backgroundColor: Theme.of(context).colorScheme.primary,
           child: const Icon(Icons.add, color: Colors.white),
         ),
       ) : null,

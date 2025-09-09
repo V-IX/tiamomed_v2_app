@@ -1,48 +1,24 @@
-enum BonusesType { accrual, deduction, burned }
+import 'package:json_annotation/json_annotation.dart';
 
+part 'client_bonuses_history_item.g.dart';
+
+@JsonSerializable()
 class ClientBonusesHistoryItem {
   ClientBonusesHistoryItem({
-    required this.id,
     required this.date,
-    required this.type,
-    required this.title,
+    required this.text,
     required this.count,
   });
 
-  final String id;
-  final String date;
-  final BonusesType type;
-  final String title;
-  final int count;
+  factory ClientBonusesHistoryItem.fromJson(Map<String, dynamic> json) => _$ClientBonusesHistoryItemFromJson(json);
+  Map<String, dynamic> toJson() => _$ClientBonusesHistoryItemToJson(this);
 
-  static List<ClientBonusesHistoryItem> fakeList = [
-    ClientBonusesHistoryItem(
-      id: '1',
-      date: '2023-10-26',
-      type: BonusesType.accrual,
-      title: 'Welcome Bonus',
-      count: 100,
-    ),
-    ClientBonusesHistoryItem(
-      id: '2',
-      date: '2023-10-27',
-      type: BonusesType.deduction,
-      title: 'Redeemed for Discount',
-      count: 50,
-    ),
-    ClientBonusesHistoryItem(
-      id: '3',
-      date: '2023-10-28',
-      type: BonusesType.burned,
-      title: 'Purchase Bonus',
-      count: 25,
-    ),
-    ClientBonusesHistoryItem(
-      id: '4',
-      date: '2023-10-29',
-      type: BonusesType.accrual,
-      title: 'Referral Bonus',
-      count: 75,
-    ),
-  ];
+  @JsonKey(name: 'date')
+  final String date;
+  @JsonKey(name: 'text')
+  final String text;
+  @JsonKey(name: 'count')
+  final double count;
+
+  static List<ClientBonusesHistoryItem> fakeList = [];
 }

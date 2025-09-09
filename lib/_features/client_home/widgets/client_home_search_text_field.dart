@@ -21,12 +21,8 @@ class _ClientHomeSearchTextFieldState extends State<ClientHomeSearchTextField> {
   final String _zeroWidthSpace = '\u200B';
 
   void rebuildSuggestions() {
-    // save previous text
     final String previousText = _searchController.text;
-
-    _searchController.text = '$_zeroWidthSpace$previousText'; // This will trigger updateSuggestions and call `suggestionsBuilder`.
-
-    // restore previous text
+    _searchController.text = '$_zeroWidthSpace$previousText';
     _searchController.text = previousText;
   }
 
@@ -62,8 +58,7 @@ class _ClientHomeSearchTextFieldState extends State<ClientHomeSearchTextField> {
                     });
                   },
                   viewOnChanged: (String text) {
-                    //context.read<SearchFieldBloc>().add(GetSearchItemEvent(text: text));
-
+                    context.read<ClientSearchBloc>().add(GetClientSearchItemEvent(text: text));
                   },
                   builder: (BuildContext context, SearchController controller) {
                     return SearchBar(
@@ -87,7 +82,7 @@ class _ClientHomeSearchTextFieldState extends State<ClientHomeSearchTextField> {
                       final ClientSearchLoaded innerState = context.read<ClientSearchBloc>().state as ClientSearchLoaded;
 
                       return List<ListTile>.generate(innerState.itemsForSearch.length, (int index) {
-                        final String item = innerState.itemsForSearch[index];
+                        final String item = innerState.itemsForSearch[index].title;
                         return ListTile(
                           title: Text(item),
                           onTap: () {

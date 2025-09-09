@@ -87,4 +87,26 @@ class ApiClient {
       rethrow;
     }
   }
+
+  Future<Response<dynamic>> download(
+      String url, {
+        required String fullFilePath,
+        Map<String, dynamic>? queryParameters,
+        Options? options,
+        ProgressCallback? onReceiveProgress,
+      }) async {
+    try {
+      final Response<dynamic> response = await _dio.download(
+        url,
+        fullFilePath,
+        options: options,
+        onReceiveProgress: onReceiveProgress,
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+
 }

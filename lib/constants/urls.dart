@@ -12,3 +12,7 @@ const String getClientNotificationsUrl = '/client/notifications/';
 const String markNotificationAsReadUrl = '/client/notifications/read_it';
 const String getFeedbacksUrl = '/client/reviews';
 const String addFeedbackUrl = '/client/reviews/add';
+const String getClientBonusesUrl = '/client/info/bonuses';
+const String getClientFileNamesUrl = '/client/files/list';
+const String getClientFileUrl = '/client/files/file';
+const String getClientSearchItemsUrl = '/client/services/search/';

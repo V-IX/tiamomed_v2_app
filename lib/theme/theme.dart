@@ -6,8 +6,9 @@ final ThemeData themeDate = ThemeData(
   colorScheme: ColorScheme.fromSeed(
     seedColor: Colors.white,
     primary: const Color(0xFFFF0066),
-    surface: const Color(0xFFDADADA),
+    surface: const Color(0xFFF8F8F8),
   ),
+  fontFamily: 'Inter',
   filledButtonTheme: FilledButtonThemeData(
     style: ButtonStyle(
       shape: MaterialStateProperty.all<RoundedRectangleBorder>(

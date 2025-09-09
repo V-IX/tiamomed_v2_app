@@ -14,7 +14,10 @@ class ClientDiWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return provider.MultiProvider(
-      providers: [clientNotificationsApiServiceProvider, clientNotificationsRepositoryProvider],
+      providers: [
+        clientNotificationsApiServiceProvider,
+        clientNotificationsRepositoryProvider
+      ],
       child: MultiBlocProvider(
         providers: [
           BlocProvider<ClientNotificationsBloc>(

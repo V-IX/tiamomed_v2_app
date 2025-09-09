@@ -16,8 +16,8 @@ class ClientBonusesHistoryCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              item.title,
-              style: TextStyle(color: item.type == BonusesType.burned ? Colors.red : Colors.black),
+              item.text,
+              style: const TextStyle(color: Colors.black),
             ),
             const SizedBox(height: 6),
             Text(item.date),
@@ -25,8 +25,8 @@ class ClientBonusesHistoryCard extends StatelessWidget {
         ),
         const SizedBox(width: 10),
         Text(
-          "${item.type == BonusesType.accrual ? "+" : "-"}${item.count}",
-          style: TextStyle(color: item.type == BonusesType.accrual ? Colors.green : Colors.red),
+          "${item.count > 0 ? "+" : ""}${item.count}",
+          style: TextStyle(color: item.count > 0 ? Colors.green : Colors.red),
         ),
       ],
     );

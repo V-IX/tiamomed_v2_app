@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
 
 import '../../data/client_search/client_search_repository.dart';
+import '../../models/client_search_item.dart';
 
 part 'client_search_event.dart';
 part 'client_search_state.dart';
@@ -23,7 +24,7 @@ class ClientSearchBloc extends Bloc<ClientSearchEvent, ClientSearchState> {
   ) async {
     try {
       emit(ClientSearchLoading());
-      final List<String> items = await _clientSearchRepository.getSearchItem(event.text);
+      final List<ClientSearchItem> items = await _clientSearchRepository.getSearchItem(event.text);
       emit(ClientSearchLoaded(itemsForSearch: items));
     } catch (error) {
       _logger.e(error);

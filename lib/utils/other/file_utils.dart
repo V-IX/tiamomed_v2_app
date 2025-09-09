@@ -8,10 +8,10 @@ String getFileSize(String path) {
   }
 
   final int bytes = file.lengthSync();
-  return _formatBytes(bytes, 2); // 2 знака после запятой
+  return formatBytes(bytes, 2); // 2 знака после запятой
 }
 
-String _formatBytes(int bytes, int decimals) {
+String formatBytes(int bytes, int decimals) {
   if (bytes == 0) {
     return '0 B';
   }

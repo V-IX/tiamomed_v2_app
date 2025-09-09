@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart' as bloc;
+import 'package:nested/nested.dart';
 import 'package:provider/provider.dart' as provider;
 
 import '../data/client_bonuses_repository.dart';
@@ -15,15 +16,15 @@ class ClientBonusesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return provider.MultiProvider(
-      providers: [clientBonusesApiServiceProvider, clientBonusesRepositoryProvider],
+      providers: <SingleChildWidget>[clientBonusesApiServiceProvider, clientBonusesRepositoryProvider],
       child: bloc.BlocProvider<ClientBonusesBloc>(
-        create: (context) =>
+        create: (BuildContext context) =>
             ClientBonusesBloc(clientBonusesRepository: context.read<ClientBonusesRepository>())
               ..add(GetClientBonusesHistoryEvent()),
         child: Scaffold(
           appBar: AppBar(title: const Text('Бонусные баллы')),
           body: bloc.BlocBuilder<ClientBonusesBloc, ClientBonusesState>(
-            builder: (context, state) {
+            builder: (BuildContext context, ClientBonusesState state) {
               return switch (state) {
                 ClientBonusesInitial() => const Center(child: CircularProgressIndicator()),
                 ClientBonusesLoading() => const Center(child: CircularProgressIndicator()),
@@ -33,7 +34,7 @@ class ClientBonusesPage extends StatelessWidget {
                     padding: const EdgeInsets.all(22),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+                      children: <Widget>[
                         const ClientBonusesCard(count: 120),
                         const SizedBox(height: 22),
                         const Text('Сгорания баллов'),
@@ -42,7 +43,7 @@ class ClientBonusesPage extends StatelessWidget {
                         const SizedBox(height: 22),
                         const Text('История начислений и списаний'),
                         const SizedBox(height: 22),
-                        ClientBonusesHistoryList(items: state.bonusesHistory)
+                        ClientBonusesHistoryList(items: state.history.history)
                       ],
                     ),
                   ),

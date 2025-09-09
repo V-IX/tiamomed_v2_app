@@ -1,3 +1,4 @@
+import '../../models/client_search_item.dart';
 import 'client_search_api_service.dart';
 
 class ClientSearchRepository {
@@ -6,8 +7,8 @@ class ClientSearchRepository {
 
   final ClientSearchApiService _clientSearchApiService;
 
-  Future<List<String>> getSearchItem(String text) async {
-    return _clientSearchApiService.getSearchItem(text);
+  Future<List<ClientSearchItem>> getSearchItem(String text) async {
+    return _clientSearchApiService.getSearchItems(text);
   }
 
 }
