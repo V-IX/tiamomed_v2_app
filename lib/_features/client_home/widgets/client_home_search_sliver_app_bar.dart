@@ -62,31 +62,43 @@ class _ClientHomeSearchSliverAppBarState extends State<ClientHomeSearchSliverApp
               ),
               AnimatedPositioned(
                 duration: const Duration(milliseconds: 200),
-                top: _isFlexible ? kToolbarHeight+6 : 150-((constraints.maxHeight-kToolbarHeight)*(1-progress))*0.5,
+                top: _isFlexible ? kToolbarHeight+8 : 150-((constraints.maxHeight-kToolbarHeight)*(1-progress))*0.5,
                 right: 22,
                 child: SizedBox(
-                  height: 56,
-                  width: 56,
-                  child: SizedBox(
-                    height: 44,
-                    width: 44,
-                    child: IconButton(
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(Colors.white),
-                        shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(0.0),
-                                side: BorderSide.none
-                            )
-                        )
+                  height: 52,
+                  width: 52,
+                  child: Stack(
+                    children: <Widget>[
+                      Positioned(
+                          top: 0,
+                          right: 0,
+                          child: Container(
+                            height: 8,
+                            width: 8,
+                            decoration: const BoxDecoration(
+                              color: Colors.black12,
+                              shape: BoxShape.circle,
+                            ),
+                          )
                       ),
-                      onPressed: (){
-                        //context.push(Routers.newAppointmentSelectDoctorRoute.path);
-                      },
-                      icon: const Icon(Icons.notifications, color: Colors.black26,),
-                    ),
+                      Align(
+                        child: SizedBox(
+                          height: 44,
+                          width: 44,
+                          child: IconButton(
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(Colors.white),
+                            ),
+                            onPressed: (){
+                              //context.push(Routers.newAppointmentSelectDoctorRoute.path);
+                            },
+                            icon: const Icon(Icons.notifications, color: Colors.black26,),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
+                )
               ),
               AnimatedPositioned(
                   duration: const Duration(milliseconds: 200),

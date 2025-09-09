@@ -11,6 +11,8 @@ import 'package:provider/provider.dart' as provider;
 import '../../../constants/image_paths.dart';
 import '../../auth/models/auth_user.dart';
 import '../../auth/state/auth_bloc.dart';
+import '../../client_bonuses/data/client_bonuses_repository.dart';
+import '../../client_bonuses/di/client_bonuses_provider.dart';
 import '../../client_feedback/routes/client_feedback_route.dart';
 import '../../client_files/routes/client_files_route.dart';
 import '../../client_service_categories/data/client_services_repository.dart';
@@ -31,121 +33,117 @@ class ClientHomePage extends StatelessWidget {
       providers: <SingleChildWidget>[
         clientServicesApiServiceProvider,
         clientServicesRepositoryProvider,
+        clientBonusesApiServiceProvider,
+        clientBonusesRepositoryProvider,
       ],
-      child: bloc.BlocProvider(
-        create: (BuildContext context) =>
-            ClientHomeBloc(clientServicesRepository: context.read<ClientServicesRepository>())
-              ..add(LoadClientHomeEvent()),
+      child: bloc.BlocProvider<ClientHomeBloc>(
+        create: (BuildContext context) => ClientHomeBloc(
+          clientServicesRepository: context.read<ClientServicesRepository>(),
+          clientBonusesRepository: context.read<ClientBonusesRepository>(),
+        )..add(LoadClientHomeEvent()),
         child: BlocBuilder<AuthBloc, AuthState>(
           builder: (BuildContext context, AuthState authState) {
             return Scaffold(
-              body: CustomScrollView(
-                slivers: <Widget>[
-                  ClientHomeSearchSliverAppBar(
-                    fio: authState.user?.fio ?? '',
-                    userType: authState.user!.userType,
-                  ),
-                  SliverPadding(
-                    padding: const EdgeInsets.all(22.0),
-                    sliver: SliverList(
-                      delegate: SliverChildListDelegate(<Widget>[
-                        const SizedBox(height: 16),
-                        const ClientHomeBonusCountCard(),
-                        const SizedBox(height: 16),
-                        if (authState.user != null && authState.user!.userType == UserType.sellerClient)
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 16.0),
-                            child: Ink(
-                              decoration: const BoxDecoration(color: Colors.white),
-                              child: InkWell(
-                                onTap: () {
-                                  context.goNamed(ClientServicePromotionRoute.name);
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.all(12.0),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: <Widget>[
-                                      const Text('Продвижение услуг'),
-                                      const SizedBox(width: 22),
-                                      Container(
-                                        padding: const EdgeInsets.all(8),
-                                        decoration: const BoxDecoration(
-                                          color: Colors.black12,
+              body: BlocBuilder<ClientHomeBloc, ClientHomeState>(
+                builder: (BuildContext context, ClientHomeState state) {
+                  return switch(state) {
+                    ClientHomeInitial() => const Center(child: CircularProgressIndicator()),
+                    ClientHomeLoading() => const Center(child: CircularProgressIndicator()),
+                    ClientHomeError() => Center(child: Text(state.message)),
+                    ClientHomeLoaded() => CustomScrollView(
+                      slivers: <Widget>[
+                        ClientHomeSearchSliverAppBar(
+                          fio: authState.user?.fio ?? '',
+                          userType: authState.user!.userType,
+                        ),
+                        SliverPadding(
+                          padding: const EdgeInsets.all(22.0),
+                          sliver: SliverList(
+                            delegate: SliverChildListDelegate(<Widget>[
+                              const SizedBox(height: 16),
+                              const ClientHomeBonusCountCard(),
+                              const SizedBox(height: 16),
+                              if (authState.user != null &&
+                                  authState.user!.userType == UserType.sellerClient)
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 16.0),
+                                  child: Ink(
+                                    decoration: const BoxDecoration(color: Colors.white),
+                                    child: InkWell(
+                                      onTap: () {
+                                        context.goNamed(ClientServicePromotionRoute.name);
+                                      },
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(16.0),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            const Text('Продвижение услуг'),
+                                            const SizedBox(width: 22),
+                                            Icon(Icons.chevron_right)
+                                          ],
                                         ),
-                                        child: const Icon(Icons.chevron_right),
                                       ),
-                                    ],
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ),
-                          ),
 
-                        Row(
-                          spacing: 16,
-                          children: <Widget>[
-                            Flexible(
-                              child: ClientHomeMenuCard(
-                                title: 'Посещения',
-                                subtitle: 'История посещений',
-                                onTap: () {
-                                  context.go(ClientVisitHistoryRoute.path);
-                                },
-                                imagePath: historyIconPath,
+                              Row(
+                                spacing: 16,
+                                children: <Widget>[
+                                  Flexible(
+                                    child: ClientHomeMenuCard(
+                                      title: 'Посещения',
+                                      subtitle: 'История посещений',
+                                      onTap: () {
+                                        context.go(ClientVisitHistoryRoute.path);
+                                      },
+                                      imagePath: historyIconPath,
+                                    ),
+                                  ),
+                                  Flexible(
+                                    child: ClientHomeMenuCard(
+                                      title: 'Мои файлы',
+                                      subtitle: 'Анализы, фото и видео',
+                                      onTap: () {
+                                        context.go(ClientFilesRoute.path);
+                                      },
+                                      imagePath: filesIconPath,
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
-                            Flexible(
-                              child: ClientHomeMenuCard(
-                                title: 'Мои файлы',
-                                subtitle: 'Анализы, фото и видео',
-                                onTap: () {
-                                  context.go(ClientFilesRoute.path);
-                                },
-                                imagePath: filesIconPath,
+                              const SizedBox(height: 16),
+                              Row(
+                                spacing: 16,
+                                children: <Widget>[
+                                  Flexible(
+                                    child: ClientHomeMenuCard(
+                                      title: 'Мои отзывы',
+                                      subtitle: 'Отзывы и предложения',
+                                      onTap: () {
+                                        context.go(ClientFeedbackRoute.path);
+                                      },
+                                      imagePath: feedbackIconPath,
+                                    ),
+                                  ),
+                                  Flexible(
+                                    child: ClientHomeMenuCard(
+                                      title: 'Рассрочка',
+                                      subtitle: 'Оформление и история',
+                                      onTap: () {},
+                                      imagePath: creditIconPath,
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 16),
-                        Row(
-                          spacing: 16,
-                          children: <Widget>[
-                            Flexible(
-                              child: ClientHomeMenuCard(
-                                title: 'Мои отзывы',
-                                subtitle: 'Отзывы и предложения',
-                                onTap: () {
-                                  context.go(ClientFeedbackRoute.path);
-                                },
-                                imagePath: feedbackIconPath,
+                              const SizedBox(height: 22),
+                              const Text(
+                                'Предоставляемые услуги',
+                                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
                               ),
-                            ),
-                            Flexible(
-                              child: ClientHomeMenuCard(
-                                title: 'Рассрочка',
-                                subtitle: 'Оформление и история',
-                                onTap: () {},
-                                imagePath: creditIconPath,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 22),
-                        const Text(
-                          'Предоставляемые услуги',
-                          style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
-                        ),
-                        const SizedBox(height: 12),
-                        bloc.BlocBuilder<ClientHomeBloc, ClientHomeState>(
-                          builder: (BuildContext context, ClientHomeState state) {
-                            return switch (state) {
-                              ClientHomeInitial() => const SizedBox(),
-                              ClientHomeLoading() => const Center(
-                                child: CircularProgressIndicator(),
-                              ),
-                              ClientHomeError() => Center(child: Text(state.message)),
-                              ClientHomeLoaded() => GridView.builder(
+                              const SizedBox(height: 12),
+                              GridView.builder(
                                 padding: EdgeInsets.zero,
                                 shrinkWrap: true,
                                 physics: const NeverScrollableScrollPhysics(),
@@ -190,15 +188,15 @@ class ClientHomePage extends StatelessWidget {
                                 },
                                 itemCount: state.categories.length,
                               ),
-                            };
-                          },
+                              const SizedBox(height: 100),
+                            ]),
+                          ),
                         ),
-                        const SizedBox(height: 100),
-                      ]),
+                      ],
                     ),
-                  ),
-                ],
-              ),
+                  };
+                }
+              )
             );
           },
         ),
